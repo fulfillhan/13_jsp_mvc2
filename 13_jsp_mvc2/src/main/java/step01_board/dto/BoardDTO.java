@@ -21,7 +21,7 @@ public class BoardDTO {
 	private String writer;
 	private String subject;
 	private String password;
-	private String contact;
+	private String content;
 	private long readCnt;
 	private Date enrollDt;
 	
@@ -68,12 +68,12 @@ public class BoardDTO {
 		this.password = password;
 	}
 
-	public String getContact() {
-		return contact;
+	public String getContent() {
+		return content;
 	}
 
-	public void setContact(String contact) {
-		this.contact = contact;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public long getReadCnt() {
@@ -98,7 +98,7 @@ public class BoardDTO {
 	@Override
 	public String toString() {
 		return "BoardDTO [boardId=" + boardId + ", email=" + email + ", writer=" + writer + ", subject=" + subject
-				+ ", password=" + password + ", contact=" + contact + ", readCnt=" + readCnt + ", enrollDt=" + enrollDt
+				+ ", password=" + password + ", content=" + content + ", readCnt=" + readCnt + ", enrollDt=" + enrollDt
 				+ "]";
 	}
 	
