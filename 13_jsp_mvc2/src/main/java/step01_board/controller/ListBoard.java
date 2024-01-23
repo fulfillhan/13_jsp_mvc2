@@ -18,20 +18,17 @@ import step01_board.dto.BoardDTO;
 public class ListBoard extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-       
-
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//일관성있게 개발을 위해 싱글턴 사용
-		//BoardDAO.getInstance().getBoardList();// dao에서 데이터 받음
 		
 		ArrayList<BoardDTO> boardList = BoardDAO.getInstance().getBoardList();
 		request.setAttribute("boardList", boardList);
 		
 		//request.setAttribute("boardList" , BoardDAO.getInstance().getBoardList());
-				
+		
 		RequestDispatcher dis = request.getRequestDispatcher("step01_boardEx/bList.jsp");
 		dis.forward(request, response);
+		
 	}
 
 }

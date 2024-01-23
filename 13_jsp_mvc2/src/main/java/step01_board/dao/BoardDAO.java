@@ -2,6 +2,7 @@ package step01_board.dao;
 
 import java.sql.Connection;
 
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,6 +44,7 @@ import step01_board.dto.BoardDTO;
 			loginTimeout="10" 
 			maxWait="5000" 
 		/> 
+		 * 데이터를 더 추가한다면 MVC2_PRACTICE? 변경/name="jdbc/board" 변경
 
 
 	3) 데이터베이스와 연동하는 메서드를 생성하여 데이터베이스 연결객체를 생성 및 사용한다. 
@@ -54,8 +56,8 @@ import step01_board.dto.BoardDTO;
 		
 		(연결코드)
 		Context initctx = new InitialContext();						 // 데이터베이스와 연결하기 위한 init객체 생성
-		Context envctx = (Context) initctx.lookup("java:comp/env");  // lookup 메서드를 통해 context.xml 파일에 접근하여 자바환경 코드를 검색     
-		DataSource ds = (DataSource) envctx.lookup("jdbc/board"); 	 // <Context>태그안의 <Resource> 환경설정의 name이 jdbc/board인 것을 검색	  
+		Context envctx = (Context) initctx.lookup("java:comp/env");  // lookup 메서드를 통해 context.xml 파일에 접근하여 자바환경 코드를 검색    
+		DataSource ds = (DataSource) envctx.lookup("jdbc/board"); 	 // <Context>태그안의 <Resource> 환경설정의 name이 jdbc/board인 것을 검색(SQL하고 다른거 연결할 때 바꿔줘야함)	  
 		conn = ds.getConnection();
 
 */
@@ -92,7 +94,7 @@ public class BoardDAO {
 			
 		Context initctx = new InitialContext();						
 		Context envctx = (Context) initctx.lookup("java:comp/env");      
-		DataSource ds = (DataSource) envctx.lookup("jdbc/board"); 	   
+		DataSource ds = (DataSource) envctx.lookup("jdbc/board"); 	 //  envctx.lookup("이건연습임"); DB연결할때 SERVER에서 context.xml확장에서 변경해줘야함 
 		conn = ds.getConnection();
 		}
 		catch (Exception e) {
@@ -178,6 +180,10 @@ private void getClose() {
 			
 			getConnection();	// DB 연결
 			
+			 pstmt = conn.prepareStatement("UPDATE BOARD SET READ_CNT = READ_CNT +1 WHERE BOARD_ID=?");
+			 pstmt.setLong(1, boardId);
+			 pstmt.executeUpdate();
+			 
 			pstmt = conn.prepareStatement("SELECT * FROM BOARD WHERE BOARD_ID = ?");
 			pstmt.setLong(1, boardId);
 			rs = pstmt.executeQuery();
@@ -202,5 +208,37 @@ private void getClose() {
   		
   		return boardDTO;
   	}
+  	//인증제 맞다 아니다?
+  	public boolean checkAuthorizedUser(BoardDTO boardDTO) {
+		
+  		boolean isAuthorizedUser = false;
+  		
+  		try {
+			getConnection();
+			String sql = """
+					SELECT * FROM BOARD WHERE BOARD_ID=? AND PASSWORD = ?
+					""";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, boardDTO.getBoardId());// boardDTO에서 넘어온 boardId
+			pstmt.setString(2, boardDTO.getPassword());
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				isAuthorizedUser = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+		}
+  		
+  		// 중간테스트
+  		System.out.println(isAuthorizedUser);
+  		return isAuthorizedUser;
+		
+		
+	}
+  	
 	
 }

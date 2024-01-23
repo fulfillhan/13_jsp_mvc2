@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import step01_board.dao.BoardDAO;
+import step01_board.dto.BoardDTO;
 
 
 @WebServlet("/bDetail")
@@ -24,9 +25,16 @@ public class DetailBoard extends HttpServlet {
 	 long boardId =	Long.parseLong(request.getParameter("boardId"));
 		
 		//db에서 가져오기
-		BoardDAO.getInstance().getBoardDetail(boardId);
+	    BoardDTO boardDTO =BoardDAO.getInstance().getBoardDetail(boardId);
+	    request.setAttribute("boardDTO", boardDTO);
+	    
+	   // BoardDTO boardDTO =BoardDAO.getInstance().getBoardDetail(boardId);
+	   //request.setAttribute("boardDTO",BoardDAO.getInstance().getBoardDetail(boardId));
+		
 		
 		//화면으로 보내기
+	    RequestDispatcher dis = request.getRequestDispatcher("step01_boardEx/bDetail.jsp");
+		dis.forward(request, response);
 	}
 
 
