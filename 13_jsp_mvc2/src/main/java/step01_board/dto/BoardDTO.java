@@ -27,7 +27,7 @@ public class BoardDTO {
 	
 	
 	
-	
+	//private 필드에 접근하고 수정하기 위한 게터와 세터 메서드
 	public long getBoardId() {
 		return boardId;
 	}

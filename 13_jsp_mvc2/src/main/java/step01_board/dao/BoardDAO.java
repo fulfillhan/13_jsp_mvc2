@@ -3,6 +3,7 @@ package step01_board.dao;
 import java.sql.Connection;
 
 
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -75,12 +76,12 @@ public class BoardDAO {
 
 */
 
-	
-	private BoardDAO() {}
-	private static BoardDAO instance = new BoardDAO();
-	public static BoardDAO getInstance() {
-		return instance;
-	}
+	  private BoardDAO() {} 
+	  private static BoardDAO instance = new BoardDAO();
+	  public static BoardDAO getInstance() {
+		  return instance; 
+		  }
+	 
 	
 	//데이터베이스 연동 객체 생성
 	private Connection conn = null;
@@ -204,7 +205,7 @@ private void getClose() {
 			getClose();			// DB 연결 해제
 		}
   		
-  		System.out.println(boardDTO);
+  		//System.out.println(boardDTO);
   		
   		return boardDTO;
   	}

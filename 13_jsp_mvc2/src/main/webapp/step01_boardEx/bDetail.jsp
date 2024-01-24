@@ -27,7 +27,7 @@
 				<td>${boardDTO.email }</td>
 			</tr>
 			<tr>
-				<td>제목</td>
+				<td	>제목</td>
 				<td>${boardDTO.subject }</td>
 			</tr>
 			<tr>
