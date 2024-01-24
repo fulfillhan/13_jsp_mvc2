@@ -29,6 +29,7 @@
 				</tr>
 			</table>
 			<p>
+			 	<input type="hidden" name="menu" value="${menu }"/>
 				<input type="hidden" name="boardId" value="${boardDTO.boardId }"/>
 				<input type="submit" value="인증" />
 				<input type="button" value="목록보기" />

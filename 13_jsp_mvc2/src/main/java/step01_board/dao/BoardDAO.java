@@ -235,11 +235,50 @@ private void getClose() {
 		}
   		
   		// 중간테스트
-  		System.out.println(isAuthorizedUser);
+  		//System.out.println(isAuthorizedUser);
   		return isAuthorizedUser;
-		
 		
 	}
   	
-	
+  	public void deleteBoard(long boardId) {
+  		
+  		try {
+  			getConnection();
+  			conn.prepareStatement("DELETE FROM BOARD WHERE BOARD_ID=?");
+  			pstmt.setLong(1, boardId);
+  			pstmt.executeQuery();
+  			
+  			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			getClose();
+		}
+  		
+  	}
+  	
+  	public void updateBoard(BoardDTO boardDTO) {
+  		
+  		try {
+			
+			getConnection();
+			
+			String sql = """
+				UPDATE BOARD
+				SET    SUBJECT = ? ,
+					   CONTENT = ?
+			    WHERE  BOARD_ID = ?""";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, boardDTO.getSubject());
+			pstmt.setString(2, boardDTO.getContent());
+			pstmt.setLong(3 , boardDTO.getBoardId());
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			getClose();
+		}
+  	}
 }

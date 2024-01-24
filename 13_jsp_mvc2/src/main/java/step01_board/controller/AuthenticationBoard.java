@@ -25,8 +25,12 @@ public class AuthenticationBoard extends HttpServlet {
 		BoardDTO boardDTO = BoardDAO.getInstance().getBoardDetail(Long.parseLong(request.getParameter("boardId")));
 		request.setAttribute("boardDTO", boardDTO);
 		
+		request.setAttribute("menu", request.getParameter("menu"));
+		
 		RequestDispatcher dis = request.getRequestDispatcher("step01_boardEx/bAuthentication.jsp");
 		dis.forward(request, response); //화면 이동
+		
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,25 +42,48 @@ public class AuthenticationBoard extends HttpServlet {
 		boardDTO.setBoardId(Long.parseLong(request.getParameter("boardId")));
 		boardDTO.setPassword(request.getParameter("password"));
 		
+		 String menu = request.getParameter("menu");
+		
 		// dao로 보내기
 		//boolean = BoardDAO.getInstance().checkAuthorizedUser(boardDTO);// 이아이디 인증해주기!
         
 		String jsScript="";
-		if (BoardDAO.getInstance().checkAuthorizedUser(boardDTO)) {
-			// 리액션 
-			jsScript = "<script>";
-			//jsScript += "location.href='bDelete?boardId=";		
-			jsScript += "alert('ok');";		
-			jsScript += "</script>";		
+		if (BoardDAO.getInstance().checkAuthorizedUser(boardDTO)) {//아이디 true라면
+			if(menu.equals("delete")) {
+				
+				jsScript = "<script>";
+				jsScript += "location.href='bDelete?boardId=" + boardDTO.getBoardId() + "';";	//""이거 잘 보기	
+				jsScript += "alert('ok');";		
+				jsScript += "</script>";		
+			}
+			else if (menu.equals("update")) {
+				jsScript = "<script>";
+				jsScript += "location.href='bUpdate?boardId=" + boardDTO.getBoardId() + "';";	
+				jsScript += "alert('ok');";		
+				jsScript += "</script>";		
+			}
 		}
 		else {
-			// 리액션
+			/* 
+			
+			# 한페이지 이전으로 이동하는 자바스크립트 함수
+			history.back();
+			history.go(-1);
+		
+			+@)
+			history.forward(); 한 페이지 앞으로 이동
+			history.go(-2);	   두 페이지 이전으로 이동
+			history.go(-3);    세 페이지 이전으로 이동
+		*/ 
+		
 			jsScript = "<script>";
+			jsScript += "alert('패스워드를 확인하세요.');";//; 을 잘써야한다.
+			jsScript += "history.go(-1);";
 			//jsScript += "location.href='bDelete?boardId=";		
-			jsScript += "alert('nok');";		
+			//jsScript += "alert('nok');";		
 			jsScript += "</script>";	
 		}
-		
+		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.print(jsScript);
 	
