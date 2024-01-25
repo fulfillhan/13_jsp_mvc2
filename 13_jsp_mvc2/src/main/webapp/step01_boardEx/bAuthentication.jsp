@@ -6,7 +6,6 @@
 <title>bAuthentication</title>
 </head>
 <body>
-
 	<div align="center"> 
 		<h3>사용자 인증</h3>
 		<form action="bAuthentication" method="post">

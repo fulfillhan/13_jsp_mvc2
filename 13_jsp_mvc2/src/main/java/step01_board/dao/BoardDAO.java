@@ -210,34 +210,34 @@ private void getClose() {
   		return boardDTO;
   	}
   	//인증제 맞다 아니다?
-  	public boolean checkAuthorizedUser(BoardDTO boardDTO) {
-		
-  		boolean isAuthorizedUser = false;
-  		
-  		try {
-			getConnection();
-			String sql = """
-					SELECT * FROM BOARD WHERE BOARD_ID=? AND PASSWORD = ?
-					""";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setLong(1, boardDTO.getBoardId());// boardDTO에서 넘어온 boardId
-			pstmt.setString(2, boardDTO.getPassword());
+	  	public boolean checkAuthorizedUser(BoardDTO boardDTO) {
 			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				isAuthorizedUser = true;
+	  		boolean isAuthorizedUser = false;
+	  		
+	  		try {
+				getConnection();
+				String sql = """
+						SELECT * FROM BOARD WHERE BOARD_ID=? AND PASSWORD = ?
+						""";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setLong(1, boardDTO.getBoardId());// boardDTO에서 넘어온 boardId
+				pstmt.setString(2, boardDTO.getPassword());
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					isAuthorizedUser = true;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				getClose();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
+	  		
+	  		// 중간테스트
+	  		//System.out.println(isAuthorizedUser);
+	  		return isAuthorizedUser;
 			
-		}
-  		
-  		// 중간테스트
-  		//System.out.println(isAuthorizedUser);
-  		return isAuthorizedUser;
-		
 	}
   	
   	public void deleteBoard(long boardId) {

@@ -19,5 +19,7 @@ public class MainBoard extends HttpServlet {
 		RequestDispatcher dis = request.getRequestDispatcher("step01_boardEx/bMain.jsp");
 		dis.forward(request, response);
 	}
+	
+	
 
 }

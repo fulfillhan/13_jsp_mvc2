@@ -50,7 +50,6 @@ public class AuthenticationBoard extends HttpServlet {
 		String jsScript="";
 		if (BoardDAO.getInstance().checkAuthorizedUser(boardDTO)) {//아이디 true라면
 			if(menu.equals("delete")) {
-				
 				jsScript = "<script>";
 				jsScript += "location.href='bDelete?boardId=" + boardDTO.getBoardId() + "';";	//""이거 잘 보기	
 				jsScript += "alert('ok');";		
