@@ -247,7 +247,7 @@ private void getClose() {
   			getConnection();
   			conn.prepareStatement("DELETE FROM BOARD WHERE BOARD_ID=?");
   			pstmt.setLong(1, boardId);
-  			pstmt.executeQuery();
+  			pstmt.executeUpdate();
   			
   			
 		} catch (Exception e) {
