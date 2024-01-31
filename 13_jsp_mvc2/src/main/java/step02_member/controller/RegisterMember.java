@@ -58,11 +58,12 @@ public class RegisterMember extends HttpServlet {
 		
 		String originalFileName = "";
 		String profileUUID = "";
-		if (files.hasMoreElements()) {													
-			String element = (String)files.nextElement();								
-			originalFileName = multi.getOriginalFileName(element);						
-			profileUUID = UUID.randomUUID() + originalFileName.substring(originalFileName.lastIndexOf("."));
+		if (files.hasMoreElements()) { // 다음 객체가 있는지 확인													
+			String element = (String)files.nextElement();	// 가져오기						
+			originalFileName = multi.getOriginalFileName(element); // 내가업로드한 원본파일 가져오기					
+			profileUUID = UUID.randomUUID() + originalFileName.substring(originalFileName.lastIndexOf(".")); // UUID.업로드한파일확장자
 			
+			// DB에 저장시켜야할 것 같음
 			memberDTO.setProfile(originalFileName);
 			memberDTO.setProfileUUID(profileUUID);
 			
