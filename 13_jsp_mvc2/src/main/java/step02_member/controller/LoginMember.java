@@ -33,13 +33,14 @@ public class LoginMember extends HttpServlet {
 		String isAuthorized = "false";
 		if (MemberDAO.getInstance().loginMember(memberDTO)) {
 			
-			HttpSession session = request.getSession();
-			session.setAttribute("memberId", request.getParameter("memberId"));			
+			
+			HttpSession session = request.getSession();//  request객체로 고유 세션아이디와 세션을 얻는다.
+			session.setAttribute("memberId", request.getParameter("memberId"));	//세션에서 'memberId'속성을 요청
 			isAuthorized = "true";
 			
 		}
 		
-		PrintWriter out = response.getWriter();	
+		PrintWriter out = response.getWriter();	//응답에 더 쓴다.
 		out.print(isAuthorized);
 
 	}
