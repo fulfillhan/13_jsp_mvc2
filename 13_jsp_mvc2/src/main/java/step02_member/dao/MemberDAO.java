@@ -224,6 +224,7 @@ public class MemberDAO {
             		       ROAD_ADDRESS = ?,
             		       JIBUN_ADDRESS = ?,
             		       NAMUJI_ADDRESS = ?""";
+           
               
             if (memberDTO.getProfile() != null) { 
             	sql += """ 

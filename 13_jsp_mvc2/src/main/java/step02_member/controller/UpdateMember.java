@@ -67,14 +67,14 @@ public class UpdateMember extends HttpServlet {
 			String element = (String)files.nextElement();			
 			if (multi.getOriginalFileName(element) != null) {		
 				
+				String deleteProfileUUID = MemberDAO.getInstance().getMemberDetail(multi.getParameter("memberId")).getProfileUUID(); 
+				new File(profileRepositoryPath + deleteProfileUUID).delete();
+				
 				originalFileName = multi.getOriginalFileName(element);								
 				profileUUID = UUID.randomUUID() + originalFileName.substring(originalFileName.lastIndexOf("."));
 				
 				memberDTO.setProfile(originalFileName);
 				memberDTO.setProfileUUID(profileUUID);
-				
-				String deleteProfileUUID = MemberDAO.getInstance().getMemberDetail(multi.getParameter("memberId")).getProfileUUID(); 
-				new File(profileRepositoryPath + deleteProfileUUID).delete();
 				
 				File file = new File(profileRepositoryPath + originalFileName);			
 				File renameFile = new File(profileRepositoryPath + profileUUID);		
