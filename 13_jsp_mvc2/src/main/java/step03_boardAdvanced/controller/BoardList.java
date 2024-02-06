@@ -1,6 +1,10 @@
 package step03_boardAdvanced.controller;
 
+//의문점: (currentPageNumber - 1) -1을 하는 이유는?
+//allPageCnt +1을 했는데 allPageCnt--를 하는이유는? 굳이?
+
 import java.io.IOException;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +24,9 @@ public class BoardList extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 
+	// 화면에 보여질 게시글의 개수를 지정
+	private int onePageViewCnt = 10;
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String searchKeyword = request.getParameter("searchKeyword");
@@ -28,30 +35,27 @@ public class BoardList extends HttpServlet {
 		String searchWord = request.getParameter("searchWord");
 		if (searchWord == null) searchWord = "";
 		
-		
-		// 화면에 보여질 게시글의 개수를 지정
-		int onePageViewCnt = 10;
-		
 		if (request.getParameter("onePageViewCnt") != null) {
 			onePageViewCnt = Integer.parseInt(request.getParameter("onePageViewCnt"));
 		}
 		
 		// 현재 보여지고 있는 페이지
 		String temp = request.getParameter("currentPageNumber");
-		// null 처리
+		
 		if (temp == null) {
 			temp = "1";
 		}
 		// 현재 보여지고 있는 페이지 문자를 숫자로 형변환
-		int currentPageNumber = Integer.parseInt(temp);
+		int currentPageNumber = Integer.parseInt(temp);//2
 		
 		// 전체 게시글의 개수
-		int allBoardCnt = BoardAdvancedDAO.getInstance().getAllBoardCnt(searchKeyword , searchWord);
+		int allBoardCnt = BoardAdvancedDAO.getInstance().getAllBoardCnt(searchKeyword , searchWord);//200
 		
 		int allPageCnt = allBoardCnt / onePageViewCnt + 1;
 		
-		if (allBoardCnt % onePageViewCnt == 0) allPageCnt--;
+		if (allBoardCnt % onePageViewCnt == 0) allPageCnt--; 
 		
+		// 여기서부터  -1을 하는 이유가...
 		int startPage = (currentPageNumber - 1)  / 10  * 10 + 1;
 		if (startPage == 0) {
 			startPage = 1;

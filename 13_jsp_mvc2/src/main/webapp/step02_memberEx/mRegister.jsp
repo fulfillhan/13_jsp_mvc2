@@ -71,8 +71,8 @@
 				isValidConfirmPasswd = false;
 			}
 			
-		
-	});
+			
+		});
 		
 		$("#btnOverlapped").click(function(){
 			

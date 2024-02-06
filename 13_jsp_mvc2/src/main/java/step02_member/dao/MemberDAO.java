@@ -160,7 +160,7 @@ public class MemberDAO {
             rs = pstmt.executeQuery();
             
             if (rs.next()) {
-            	memberDTO = new MemberDTO(); // 한번 더 정의한 이유는 ? 
+            	memberDTO = new MemberDTO(); 
             	memberDTO.setMemberId(rs.getString("MEMBER_ID"));
             	memberDTO.setMemberNm(rs.getString("MEMBER_NM"));
             	memberDTO.setProfileUUID(rs.getString("PROFILE_UUID"));
