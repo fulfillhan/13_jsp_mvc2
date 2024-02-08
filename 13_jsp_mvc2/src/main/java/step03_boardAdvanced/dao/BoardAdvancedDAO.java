@@ -205,8 +205,8 @@ public class BoardAdvancedDAO {
 			
 			rs = pstmt.executeQuery();
 			
-			if (rs.next()) {
-				totalBoardCnt = rs.getInt(1);
+			if (rs.next()) {// 행이 하나 이상 존재한다면
+				totalBoardCnt = rs.getInt(1);//첫번째 열을 가지고온다. 총 게시글 수
 			} 
 			
 		} catch (Exception e) {

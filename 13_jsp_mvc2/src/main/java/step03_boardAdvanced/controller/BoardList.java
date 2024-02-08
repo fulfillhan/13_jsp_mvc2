@@ -55,7 +55,7 @@ public class BoardList extends HttpServlet {
 		
 		if (allBoardCnt % onePageViewCnt == 0) allPageCnt--; 
 		
-		// 여기서부터  -1을 하는 이유가...
+		
 		int startPage = (currentPageNumber - 1)  / 10  * 10 + 1;
 		if (startPage == 0) {
 			startPage = 1;
@@ -66,7 +66,7 @@ public class BoardList extends HttpServlet {
 		if (endPage > allPageCnt) endPage = allPageCnt;
 		
 		
-		// 현재 보여질 페이지 시작 번호를 설정
+		// 현재 보여질 게시글의 시작 번호를 설정
 		int startBoardIdx = (currentPageNumber - 1) * onePageViewCnt;
 		
 		ArrayList<MainBoardDTO> boardList = BoardAdvancedDAO.getInstance().getBoardList(searchKeyword, searchWord, startBoardIdx, onePageViewCnt); //getBoardList(startRow , onePageViewCnt , searchKeyword , searchWord);
