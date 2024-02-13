@@ -106,7 +106,7 @@
 <body>
 
 	<div align="center">
-		<form action="registerMember" method="post" enctype="multipart/form-data" onsubmit="return checkFormData();">
+		<form action="registerMember" method="post" enctype="multipart/form-data" onsubmit="checkFormData();">
 			<h3>회원 가입</h3>
 			<table border="1">
 				<tr>

@@ -34,10 +34,11 @@ public class BoardAuthentication extends HttpServlet {
 	
 		request.setCharacterEncoding("utf-8");
 		
-		String boardId = request.getParameter("boardId");
-	
+		//String boardId = request.getParameter("boardId");
+		long boardId= Long.parseLong(request.getParameter("boardId"));
+		
 		MainBoardDTO mainBoardDTO = new MainBoardDTO();
-		mainBoardDTO.setBoardId(Long.parseLong(boardId));
+		mainBoardDTO.setBoardId(boardId);
 		mainBoardDTO.setPasswd(request.getParameter("passwd"));
 	
 		String menu = request.getParameter("menu");

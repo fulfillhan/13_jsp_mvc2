@@ -34,7 +34,7 @@ public class BoardUpdate extends HttpServlet {
 		
 		MainBoardDTO mainBoardDTO = new MainBoardDTO();
 		mainBoardDTO.setBoardId(Long.parseLong(request.getParameter("boardId")));
-		mainBoardDTO.setWriter(request.getParameter("writer"));
+		mainBoardDTO.setWriter(request.getParameter("writer"));// 왜 포함되어있는거지...
 		mainBoardDTO.setSubject(request.getParameter("subject"));
 		mainBoardDTO.setContent(request.getParameter("content"));
 		

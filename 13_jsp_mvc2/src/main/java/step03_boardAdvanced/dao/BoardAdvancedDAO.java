@@ -415,7 +415,7 @@ public class BoardAdvancedDAO {
 				
 				String sql = """
 						UPDATE REPLY_BOARD 
-						SET    CONTENT = ? , 
+						SET    CONTENT =? , 
 							   ENROLL_AT = NOW() 
 						WHERE  REPLY_ID = ?
 						""";
